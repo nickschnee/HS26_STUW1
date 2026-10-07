@@ -1,0 +1,9 @@
+<template>
+
+
+
+  <slot/>
+
+
+
+</template>
