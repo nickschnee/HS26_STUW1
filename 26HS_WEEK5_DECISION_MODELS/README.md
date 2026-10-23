@@ -7,9 +7,7 @@ Two small demos that use AI models running on your own laptop with [Ollama](http
 
 ## Slides
 
-`slides/index.html` explains what decision models and embeddings are, using the results from these demos. Open it in a browser (it needs internet for reveal.js and the fonts). Press `S` for the speaker notes.
-
-`slides/security.html` is a short extra deck about two security releases from 21 October 2026: PHP2Shell (PHP) and the Brotli bug in Node.js, with how to update PHP (Homebrew) and Node.js (nvm).
+The slides for this session are on [Google Slides](https://docs.google.com/presentation/d/1kTzJ_ZpJ_I1P71moK06GPTrFwb4ZjPayKb5mS3GrKdI/edit?usp=sharing).
 
 ## The two models
 
