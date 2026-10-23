@@ -48,3 +48,14 @@ These things are still the way we wrote them in class. The original README expla
 - `alert('Team is full!')` when the team is full
 - The navigation is still placed in `index.vue` and `about.vue` and not in the layout
 - All texts on the pages (in German) are unchanged
+
+## Deployment (Coolify)
+
+The `Dockerfile` builds the app in two stages: first `npm ci` and `npm run build`, then a small image that only contains `.output` and runs `node .output/server/index.mjs` on port 3000. In Coolify, choose "Dockerfile" as the build pack and set the port to 3000.
+
+To try it locally:
+
+```bash
+docker build -t pokemon-clean .
+docker run -p 3000:3000 pokemon-clean
+```
