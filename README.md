@@ -11,7 +11,6 @@ Code examples from class. Each folder is a standalone project with its own READM
 | 5 | [26HS_WEEK5_NUXT_POKEMON_FETCH](./26HS_WEEK5_NUXT_POKEMON_FETCH/README.md) | The clean version, but the Pokémon come from the PokéAPI. They're loaded with `useFetch` inside a `usePokemon` composable. |
 | 5 | [26HS_WEEK5_DECISION_MODELS](./26HS_WEEK5_DECISION_MODELS/README.md) | Two demos with local AI models in Ollama. The camera's main color is named by the decision model Nimble, and news articles are sorted into topics. Also compares Nimble with the embedding model EmbeddingGemma 2. |
 | 6 | [26HS_WEEK6_SQLITE](./26HS_WEEK6_SQLITE/readme.md) | Crash course on databases with SQLite. Covers installing the `sqlite3` CLI on Mac and Windows, DBeaver, a `users`/`posts` schema with a foreign key, simple CRUD queries and scripting with `better-sqlite3` in Node.js. Has a link to the slides. |
-| – | [WORKING_DIRECTORY](./WORKING_DIRECTORY/README.md) | Where we code together in class. Starts as a copy of the week 3 clean app. |
 
 ## Running a project
 
