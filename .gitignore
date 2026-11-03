@@ -23,3 +23,7 @@ logs
 .env
 .env.*
 !.env.example
+
+# Immo DB: the database is too large for GitHub (download on immo.nickschnee.ch), setup/ stays local
+26HS_WEEK6_IMMOSCRAPER_DB/*.db
+26HS_WEEK6_IMMOSCRAPER_DB/setup/

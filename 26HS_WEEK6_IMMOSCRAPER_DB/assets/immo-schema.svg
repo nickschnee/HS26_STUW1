@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1290" viewBox="0 0 1100 1290" role="img" aria-labelledby="title description">
+  <title id="title">UML-Diagramm der Immo SQLite-Datenbank</title>
+  <desc id="description">Alle zwölf Tabellen mit ausgewählten Spalten. Listings sind über vier Zwischentabellen mit Kategorien, Eigenschaften, Geotags und Anbietern verbunden. Ein Inserat kann mehrere Bilder haben; die Zuordnung eines Bildes ist optional. PLZ und rent_averages haben keine deklarierten Fremdschlüssel. PK bedeutet Primärschlüssel, FK Fremdschlüssel.</desc>
+
+  <rect width="1100" height="1290" fill="#ffffff"/>
+  <text x="36" y="49" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#172b3a">Immo DB</text>
+  <text x="36" y="78" font-family="Arial, sans-serif" font-size="16" fill="#526575">UML · Tabellen, Schlüssel und Beziehungen · ausgewählte Spalten</text>
+<g aria-label="listings 1 zu 0..* listing_has_category">
+<polyline fill="none" stroke="#627b8d" stroke-width="1.5" stroke-linejoin="round" points="306,235 374,235 374,183 400,183"/>
+<text x="314" y="226" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none">1</text>
+<text x="392" y="174" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none" text-anchor="end">0..*</text>
+</g>
+<g aria-label="listings 1 zu 0..* listing_has_characteristic">
+<polyline fill="none" stroke="#627b8d" stroke-width="1.5" stroke-linejoin="round" points="306,295 360,295 360,383 400,383"/>
+<text x="314" y="286" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none">1</text>
+<text x="392" y="374" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none" text-anchor="end">0..*</text>
+</g>
+<g aria-label="listings 1 zu 0..* listing_has_geotag">
+<polyline fill="none" stroke="#627b8d" stroke-width="1.5" stroke-linejoin="round" points="306,355 346,355 346,583 400,583"/>
+<text x="314" y="346" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none">1</text>
+<text x="392" y="574" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none" text-anchor="end">0..*</text>
+</g>
+<g aria-label="listings 1 zu 0..* listing_has_lister">
+<polyline fill="none" stroke="#627b8d" stroke-width="1.5" stroke-linejoin="round" points="306,415 332,415 332,771 400,771"/>
+<text x="314" y="406" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none">1</text>
+<text x="392" y="762" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none" text-anchor="end">0..*</text>
+</g>
+<g aria-label="categories 1 zu 0..* listing_has_category">
+<polyline fill="none" stroke="#627b8d" stroke-width="1.5" stroke-linejoin="round" points="710,183 790,183"/>
+<text x="778" y="174" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none" text-anchor="end">1</text>
+<text x="742" y="174" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none" text-anchor="end">0..*</text>
+</g>
+<g aria-label="characteristics 1 zu 0..* listing_has_characteristic">
+<polyline fill="none" stroke="#627b8d" stroke-width="1.5" stroke-linejoin="round" points="710,371 790,371"/>
+<text x="778" y="362" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none" text-anchor="end">1</text>
+<text x="742" y="362" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none" text-anchor="end">0..*</text>
+</g>
+<g aria-label="geotags 1 zu 0..* listing_has_geotag">
+<polyline fill="none" stroke="#627b8d" stroke-width="1.5" stroke-linejoin="round" points="710,583 790,583"/>
+<text x="778" y="574" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none" text-anchor="end">1</text>
+<text x="742" y="574" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none" text-anchor="end">0..*</text>
+</g>
+<g aria-label="lister 1 zu 0..* listing_has_lister">
+<polyline fill="none" stroke="#627b8d" stroke-width="1.5" stroke-linejoin="round" points="710,771 790,771"/>
+<text x="778" y="762" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none" text-anchor="end">1</text>
+<text x="742" y="762" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none" text-anchor="end">0..*</text>
+</g>
+<g aria-label="listings 0..1 zu 0..* images">
+<polyline fill="none" stroke="#627b8d" stroke-width="1.5" stroke-linejoin="round" points="171,486 171,594"/>
+<text x="183" y="508" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none">0..1</text>
+<text x="183" y="583" font-family="Arial" font-size="13" font-weight="400" font-style="normal" fill="#344e60" stroke="none">0..*</text>
+</g>
+<g id="table-listings">
+<rect x="36" y="190" width="270" height="296" rx="6" fill="#ffffff" stroke="#7ea99a" stroke-width="1.2"/>
+<path d="M 42,190 H 300 Q 306,190 306,196 V 230 H 36 V 196 Q 36,190 42,190 Z" fill="#e6f3ef" stroke="none"/>
+<path d="M 36,230 H 306" fill="none" stroke="#7ea99a" stroke-width="1.2"/>
+<text x="50" y="216" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" font-style="normal" fill="#172b3a" stroke="none">listings</text>
+<text x="50" y="255" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">id</text>
+<text x="292" y="255" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="228" y="255" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK</text>
+<text x="50" y="279" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">homegate_id</text>
+<text x="292" y="279" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="50" y="303" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">title</text>
+<text x="292" y="303" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="50" y="327" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">offer_type</text>
+<text x="292" y="327" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="50" y="351" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">rent_gross</text>
+<text x="292" y="351" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">REAL</text>
+<text x="50" y="375" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">buy_price</text>
+<text x="292" y="375" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">REAL</text>
+<text x="50" y="399" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">rooms</text>
+<text x="292" y="399" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">REAL</text>
+<text x="50" y="423" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">living_space</text>
+<text x="292" y="423" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">REAL</text>
+<text x="50" y="447" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">postal_code</text>
+<text x="292" y="447" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="50" y="471" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">locality</text>
+<text x="292" y="471" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+</g>
+<g id="table-images">
+<rect x="36" y="594" width="270" height="176" rx="6" fill="#ffffff" stroke="#7ea99a" stroke-width="1.2"/>
+<path d="M 42,594 H 300 Q 306,594 306,600 V 634 H 36 V 600 Q 36,594 42,594 Z" fill="#e6f3ef" stroke="none"/>
+<path d="M 36,634 H 306" fill="none" stroke="#7ea99a" stroke-width="1.2"/>
+<text x="50" y="620" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" font-style="normal" fill="#172b3a" stroke="none">images</text>
+<text x="50" y="659" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">id</text>
+<text x="292" y="659" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="228" y="659" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK</text>
+<text x="50" y="683" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">listing_id</text>
+<text x="292" y="683" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="228" y="683" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">FK</text>
+<text x="50" y="707" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">type</text>
+<text x="292" y="707" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="50" y="731" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">url</text>
+<text x="292" y="731" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="50" y="755" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">url_bucket</text>
+<text x="292" y="755" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+</g>
+<g id="table-listing_has_category">
+<rect x="400" y="126" width="310" height="104" rx="6" fill="#ffffff" stroke="#9bafc1" stroke-width="1.2"/>
+<path d="M 406,126 H 704 Q 710,126 710,132 V 166 H 400 V 132 Q 400,126 406,126 Z" fill="#edf3f9" stroke="none"/>
+<path d="M 400,166 H 710" fill="none" stroke="#9bafc1" stroke-width="1.2"/>
+<text x="414" y="152" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" font-style="normal" fill="#172b3a" stroke="none">listing_has_category</text>
+<text x="414" y="191" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">listing_id</text>
+<text x="696" y="191" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="632" y="191" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK/FK</text>
+<text x="414" y="215" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">category_id</text>
+<text x="696" y="215" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="632" y="215" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK/FK</text>
+</g>
+<g id="table-categories">
+<rect x="790" y="126" width="274" height="104" rx="6" fill="#ffffff" stroke="#a6b4bf" stroke-width="1.2"/>
+<path d="M 796,126 H 1058 Q 1064,126 1064,132 V 166 H 790 V 132 Q 790,126 796,126 Z" fill="#f2f5f7" stroke="none"/>
+<path d="M 790,166 H 1064" fill="none" stroke="#a6b4bf" stroke-width="1.2"/>
+<text x="804" y="152" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" font-style="normal" fill="#172b3a" stroke="none">categories</text>
+<text x="804" y="191" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">id</text>
+<text x="1050" y="191" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="986" y="191" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK</text>
+<text x="804" y="215" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">category_name</text>
+<text x="1050" y="215" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+</g>
+<g id="table-listing_has_characteristic">
+<rect x="400" y="314" width="310" height="128" rx="6" fill="#ffffff" stroke="#9bafc1" stroke-width="1.2"/>
+<path d="M 406,314 H 704 Q 710,314 710,320 V 354 H 400 V 320 Q 400,314 406,314 Z" fill="#edf3f9" stroke="none"/>
+<path d="M 400,354 H 710" fill="none" stroke="#9bafc1" stroke-width="1.2"/>
+<text x="414" y="340" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" font-style="normal" fill="#172b3a" stroke="none">listing_has_characteristic</text>
+<text x="414" y="379" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">listing_id</text>
+<text x="696" y="379" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="632" y="379" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK/FK</text>
+<text x="414" y="403" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">characteristic_id</text>
+<text x="696" y="403" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="632" y="403" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK/FK</text>
+<text x="414" y="427" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">value</text>
+<text x="696" y="427" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+</g>
+<g id="table-characteristics">
+<rect x="790" y="314" width="274" height="104" rx="6" fill="#ffffff" stroke="#a6b4bf" stroke-width="1.2"/>
+<path d="M 796,314 H 1058 Q 1064,314 1064,320 V 354 H 790 V 320 Q 790,314 796,314 Z" fill="#f2f5f7" stroke="none"/>
+<path d="M 790,354 H 1064" fill="none" stroke="#a6b4bf" stroke-width="1.2"/>
+<text x="804" y="340" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" font-style="normal" fill="#172b3a" stroke="none">characteristics</text>
+<text x="804" y="379" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">id</text>
+<text x="1050" y="379" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="986" y="379" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK</text>
+<text x="804" y="403" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">characteristic_name</text>
+<text x="1050" y="403" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+</g>
+<g id="table-listing_has_geotag">
+<rect x="400" y="526" width="310" height="104" rx="6" fill="#ffffff" stroke="#9bafc1" stroke-width="1.2"/>
+<path d="M 406,526 H 704 Q 710,526 710,532 V 566 H 400 V 532 Q 400,526 406,526 Z" fill="#edf3f9" stroke="none"/>
+<path d="M 400,566 H 710" fill="none" stroke="#9bafc1" stroke-width="1.2"/>
+<text x="414" y="552" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" font-style="normal" fill="#172b3a" stroke="none">listing_has_geotag</text>
+<text x="414" y="591" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">listing_id</text>
+<text x="696" y="591" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="632" y="591" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK/FK</text>
+<text x="414" y="615" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">geotag_id</text>
+<text x="696" y="615" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="632" y="615" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK/FK</text>
+</g>
+<g id="table-geotags">
+<rect x="790" y="526" width="274" height="104" rx="6" fill="#ffffff" stroke="#a6b4bf" stroke-width="1.2"/>
+<path d="M 796,526 H 1058 Q 1064,526 1064,532 V 566 H 790 V 532 Q 790,526 796,526 Z" fill="#f2f5f7" stroke="none"/>
+<path d="M 790,566 H 1064" fill="none" stroke="#a6b4bf" stroke-width="1.2"/>
+<text x="804" y="552" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" font-style="normal" fill="#172b3a" stroke="none">geotags</text>
+<text x="804" y="591" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">id</text>
+<text x="1050" y="591" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="986" y="591" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK</text>
+<text x="804" y="615" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">geotag_name</text>
+<text x="1050" y="615" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+</g>
+<g id="table-listing_has_lister">
+<rect x="400" y="714" width="310" height="104" rx="6" fill="#ffffff" stroke="#9bafc1" stroke-width="1.2"/>
+<path d="M 406,714 H 704 Q 710,714 710,720 V 754 H 400 V 720 Q 400,714 406,714 Z" fill="#edf3f9" stroke="none"/>
+<path d="M 400,754 H 710" fill="none" stroke="#9bafc1" stroke-width="1.2"/>
+<text x="414" y="740" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" font-style="normal" fill="#172b3a" stroke="none">listing_has_lister</text>
+<text x="414" y="779" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">listing_id</text>
+<text x="696" y="779" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="632" y="779" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK/FK</text>
+<text x="414" y="803" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">lister_id</text>
+<text x="696" y="803" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="632" y="803" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK/FK</text>
+</g>
+<g id="table-lister">
+<rect x="790" y="714" width="274" height="152" rx="6" fill="#ffffff" stroke="#a6b4bf" stroke-width="1.2"/>
+<path d="M 796,714 H 1058 Q 1064,714 1064,720 V 754 H 790 V 720 Q 790,714 796,714 Z" fill="#f2f5f7" stroke="none"/>
+<path d="M 790,754 H 1064" fill="none" stroke="#a6b4bf" stroke-width="1.2"/>
+<text x="804" y="740" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" font-style="normal" fill="#172b3a" stroke="none">lister</text>
+<text x="804" y="779" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">id</text>
+<text x="1050" y="779" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="986" y="779" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK</text>
+<text x="804" y="803" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">lister_id</text>
+<text x="1050" y="803" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="804" y="827" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">legal_name</text>
+<text x="1050" y="827" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="804" y="851" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">locality</text>
+<text x="1050" y="851" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+</g>
+<g id="table-plz">
+<rect x="400" y="950" width="310" height="176" rx="6" fill="#ffffff" stroke="#bcb39a" stroke-width="1.2"/>
+<path d="M 406,950 H 704 Q 710,950 710,956 V 990 H 400 V 956 Q 400,950 406,950 Z" fill="#f7f3e9" stroke="none"/>
+<path d="M 400,990 H 710" fill="none" stroke="#bcb39a" stroke-width="1.2"/>
+<text x="414" y="976" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" font-style="normal" fill="#172b3a" stroke="none">plz</text>
+<text x="414" y="1015" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">id</text>
+<text x="696" y="1015" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="632" y="1015" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK</text>
+<text x="414" y="1039" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">PLZ</text>
+<text x="696" y="1039" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="414" y="1063" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">Ortschaftsname</text>
+<text x="696" y="1063" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="414" y="1087" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">Gemeindename</text>
+<text x="696" y="1087" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="414" y="1111" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">Kantonskürzel</text>
+<text x="696" y="1111" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+</g>
+<g id="table-rent_averages">
+<rect x="790" y="950" width="274" height="272" rx="6" fill="#ffffff" stroke="#bcb39a" stroke-width="1.2"/>
+<path d="M 796,950 H 1058 Q 1064,950 1064,956 V 990 H 790 V 956 Q 790,950 796,950 Z" fill="#f7f3e9" stroke="none"/>
+<path d="M 790,990 H 1064" fill="none" stroke="#bcb39a" stroke-width="1.2"/>
+<text x="804" y="976" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" font-weight="700" font-style="normal" fill="#172b3a" stroke="none">rent_averages</text>
+<text x="804" y="1015" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">id</text>
+<text x="1050" y="1015" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="986" y="1015" font-family="Arial" font-size="11" font-weight="700" font-style="normal" fill="#155e75" stroke="none" text-anchor="end">PK</text>
+<text x="804" y="1039" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">year</text>
+<text x="1050" y="1039" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="804" y="1063" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">month</text>
+<text x="1050" y="1063" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">INTEGER</text>
+<text x="804" y="1087" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">level_type</text>
+<text x="1050" y="1087" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="804" y="1111" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">plz</text>
+<text x="1050" y="1111" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="804" y="1135" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">gemeinde</text>
+<text x="1050" y="1135" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="804" y="1159" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">kanton</text>
+<text x="1050" y="1159" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">TEXT</text>
+<text x="804" y="1183" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">rooms</text>
+<text x="1050" y="1183" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">REAL</text>
+<text x="804" y="1207" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" font-weight="400" font-style="normal" fill="#172b3a" stroke="none">median_rent_gross</text>
+<text x="1050" y="1207" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" font-weight="400" font-style="normal" fill="#526575" stroke="none" text-anchor="end">REAL</text>
+</g>
+<text x="400" y="924" font-family="Arial" font-size="14" font-weight="400" font-style="normal" fill="#526575" stroke="none">Referenz- und Auswertungstabellen · ohne deklarierte Fremdschlüssel</text>
+<text x="36" y="955" font-family="Arial" font-size="14" font-weight="400" font-style="normal" fill="#526575" stroke="none">PK  Primärschlüssel</text>
+<text x="36" y="981" font-family="Arial" font-size="14" font-weight="400" font-style="normal" fill="#526575" stroke="none">FK  Fremdschlüssel</text>
+<text x="36" y="1027" font-family="Arial" font-size="14" font-weight="400" font-style="normal" fill="#526575" stroke="none">1       genau ein Datensatz</text>
+<text x="36" y="1053" font-family="Arial" font-size="14" font-weight="400" font-style="normal" fill="#526575" stroke="none">0..1  optional ein Datensatz</text>
+<text x="36" y="1079" font-family="Arial" font-size="14" font-weight="400" font-style="normal" fill="#526575" stroke="none">0..*  beliebig viele Datensätze</text>
+<text x="36" y="1125" font-family="Arial" font-size="14" font-weight="400" font-style="normal" fill="#526575" stroke="none">Zwei PK-Spalten bilden einen</text>
+<text x="36" y="1147" font-family="Arial" font-size="14" font-weight="400" font-style="normal" fill="#526575" stroke="none">zusammengesetzten Schlüssel.</text>
+<text x="36" y="1258" font-family="Arial" font-size="14" font-weight="400" font-style="normal" fill="#526575" stroke="none">Quelle: immo.db · deklarierte Fremdschlüssel · Datentypen gemäss SQLite-Schema</text>
+</svg>

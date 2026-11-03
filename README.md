@@ -11,6 +11,7 @@ Code examples from class. Each folder is a standalone project with its own READM
 | 5 | [26HS_WEEK5_NUXT_POKEMON_FETCH](./26HS_WEEK5_NUXT_POKEMON_FETCH/README.md) | The clean version, but the Pokémon come from the PokéAPI. They're loaded with `useFetch` inside a `usePokemon` composable. |
 | 5 | [26HS_WEEK5_DECISION_MODELS](./26HS_WEEK5_DECISION_MODELS/README.md) | Two demos with local AI models in Ollama. The camera's main color is named by the decision model Nimble, and news articles are sorted into topics. Also compares Nimble with the embedding model EmbeddingGemma 2. |
 | 6 | [26HS_WEEK6_SQLITE](./26HS_WEEK6_SQLITE/readme.md) | Crash course on databases with SQLite. Covers installing the `sqlite3` CLI on Mac and Windows, DBeaver, a `users`/`posts` schema with a foreign key, simple CRUD queries and scripting with `better-sqlite3` in Node.js. Has a link to the slides. |
+| 6 | [26HS_WEEK6_IMMOSCRAPER_DB](./26HS_WEEK6_IMMOSCRAPER_DB/readme.md) | A real-world SQLite database with 185k property listings from homegate.ch (2024), with images, floor plans and PDFs on immo.nickschnee.ch. The README has a UML diagram of the schema, the tables and example queries. The database is too large for the repo, download it from [immo.nickschnee.ch](https://immo.nickschnee.ch). |
 
 ## Running a project
 
@@ -25,3 +26,5 @@ Then open `http://localhost:3000`.
 `26HS_WEEK5_DECISION_MODELS` also needs [Ollama](https://ollama.com) running with the models `nimble` and `embeddinggemma-2`. Its README has the details.
 
 `26HS_WEEK6_SQLITE` has only a README and no app. Its README explains how to set up SQLite and the Node.js scripts.
+
+`26HS_WEEK6_IMMOSCRAPER_DB` has only a README too. Download [immo.db.zip](https://immo.nickschnee.ch/immo.db.zip), unzip it and open `immo.db` with `sqlite3` or DBeaver.
