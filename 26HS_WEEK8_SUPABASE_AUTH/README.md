@@ -288,10 +288,18 @@ The same steps as on the slides:
 
 1. **Find the token.** Log in to the app. DevTools → **Application** → **Local Storage** → `sb-…-auth-token`. Copy the value of `access_token`.
 2. **Read it on jwt.io.** Paste the token into [jwt.io](https://jwt.io). Find `sub`, `role` and `exp`. Compare `sub` with your `user_id` in the Table Editor.
-3. **With and without the token.** **Network** tab → the request to `/rest/v1/team` → **Copy as cURL**. Run it in the terminal, then again without the `Authorization` line. What comes back?
+3. **With and without the token.** **Network** tab → the request to your Supabase URL + `/rest/v1/team` → **Copy as cURL**. Run it in the terminal, then again without the `Authorization` line. What comes back?
 4. **Forge the token.** jwt.io → **JWT Encoder**: paste the payload, replace `sub` with the `user_id` of a second user, enter any secret. Put the token into the cURL command. What happens?
 
 On Windows, choose **Copy as cURL (bash)** and run it in Git Bash, or import the command into Postman.
+
+About step 3:
+
+- The request doesn't go to the app on `localhost:3000`. There is no own API in week 8: supabase-js talks to Supabase directly. The URL is `NUXT_PUBLIC_SUPABASE_URL` from your `.env` plus `/rest/v1/team`, for example `https://your-project-id.supabase.co/rest/v1/team?select=id%2Cname%2Cimage&order=created_at.asc`. With a local Supabase it's `http://127.0.0.1:54321/rest/v1/team?...`. Type `team` into the filter of the Network tab to find it.
+- `/rest/v1/` is the REST API that Supabase creates for every table.
+- Copy the `GET` request, not the `OPTIONS` request next to it (that's only the CORS check of the browser).
+- In the cURL, delete only the line `-H 'authorization: Bearer eyJ...'`. Keep the `apikey` line: with the publishable key alone you're `anon`.
+- The token is only valid for one hour. If you get `401` with `JWT expired`, reload the app and copy the request again.
 
 What you should see: step 3 without the token returns `[]` (you're `anon`). Step 4 returns `401`, because your made-up secret isn't the key that Supabase uses.
 
