@@ -129,7 +129,7 @@ npm run dev
 
 Open `http://localhost:3000/pokemon`. You're sent to `/login`. Register, add a few Pokémon, log out, and register a second user in another browser (or a private window). Each user sees only their own team.
 
-Open the **Network** tab in the DevTools: every request to `/rest/v1/team` now has an `Authorization: Bearer eyJ...` header. That's the token. Paste it into [jwt.io](https://jwt.io) to see what's inside: `sub` is the user id, `role` is `authenticated`.
+Open the **Network** tab in the DevTools: every request to `/rest/v1/team` now has an `Authorization: Bearer eyJ...` header. That's the token. Paste it into [jwt.io](https://jwt.io) to see what's inside: `sub` is the user id, `role` is `authenticated`. More in [How the token works](#how-the-token-works-jwt).
 
 ## What changed compared to week 7
 
@@ -215,6 +215,104 @@ supabase-js keeps the session in `localStorage`, and only the browser has `local
 
 If you need SSR with auth, the session has to be in a cookie instead. [`@nuxtjs/supabase`](https://supabase.nuxtjs.org) does that for you.
 
+## Auth methods
+
+The most important methods of `supabase.auth`:
+
+```js
+// Sign up (with "Confirm email" off, you're logged in right away)
+const { data, error } = await supabase.auth.signUp({ email, password });
+
+// Log in
+const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+// The saved session from localStorage (with the token), or null
+const { data: { session } } = await supabase.auth.getSession();
+
+// Asks Supabase Auth who the token belongs to
+const { data: { user } } = await supabase.auth.getUser();
+
+// Log out: deletes the session in localStorage
+await supabase.auth.signOut();
+```
+
+- **`getSession()`** only reads `localStorage`. It's fast, but it doesn't check whether the token is still valid. The app uses it in the middleware, because the middleware only decides which page to show.
+- **`getUser()`** sends the token to Supabase Auth and gets the user back. Use it when you need to be sure, for example on a server.
+
+## How the token works (JWT)
+
+The token is a **JSON Web Token** (JWT, [RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519)). It has three parts, separated by dots:
+
+```
+eyJhbGciOiJFUzI1NiIs… . eyJpc3MiOiJodHRwOi8v… . IeVO1AqNXKaBgS50CW…
+       header                  payload                signature
+```
+
+| Part | Contains |
+| ---- | -------- |
+| Header | How the token was signed, for example `"alg": "ES256"` |
+| Payload | The claims: `sub` (the user id), `role` (`authenticated`), `exp` (expires after one hour), `email`, … |
+| Signature | Calculated from header and payload with a key that only Supabase Auth has |
+
+Header and payload are only Base64-encoded, not encrypted. **Anyone can read the token, but nobody can change it.** If you change one character in the payload, the signature doesn't match anymore.
+
+Which key signs the token:
+
+- **ES256** (a key pair): the private key signs, and only Supabase Auth knows it. The public key checks, and anyone may see it at `/auth/v1/.well-known/jwks.json`. The local Supabase (`npx supabase start`) signs like this.
+- **HS256** (one JWT secret): the same secret signs and checks. Whoever has the secret can build a valid token for any user. We tested it: with the secret, a self-made token with Misty's `sub` returns Misty's team. That's why the JWT secret and the secret key never go into the frontend or onto GitHub.
+
+To see which one your project uses, look at `alg` in the header on [jwt.io](https://jwt.io), or in the dashboard under **Project Settings → JWT Keys**.
+
+### The auth flow
+
+```
+pokemon.vue calls addPokemon(pikachu)
+↓
+supabase-js sends the request with "Authorization: Bearer <token>"
+↓
+Supabase checks the signature of the token
+   wrong signature or expired  →  401, the whole request is rejected
+   no token                    →  role anon (no policy, so an empty list)
+↓
+RLS checks the policy: auth.uid() = user_id
+   row belongs to someone else →  not visible, insert fails with 42501
+↓
+Allowed ✅
+```
+
+A changed token doesn't get an empty list like RLS gives you. Supabase rejects the whole request with an error, before RLS even runs.
+
+## Exercise: take your own token apart
+
+The same steps as on the slides:
+
+1. **Find the token.** Log in to the app. DevTools → **Application** → **Local Storage** → `sb-…-auth-token`. Copy the value of `access_token`.
+2. **Read it on jwt.io.** Paste the token into [jwt.io](https://jwt.io). Find `sub`, `role` and `exp`. Compare `sub` with your `user_id` in the Table Editor.
+3. **With and without the token.** **Network** tab → the request to `/rest/v1/team` → **Copy as cURL**. Run it in the terminal, then again without the `Authorization` line. What comes back?
+4. **Forge the token.** jwt.io → **JWT Encoder**: paste the payload, replace `sub` with the `user_id` of a second user, enter any secret. Put the token into the cURL command. What happens?
+
+On Windows, choose **Copy as cURL (bash)** and run it in Git Bash, or import the command into Postman.
+
+What you should see: step 3 without the token returns `[]` (you're `anon`). Step 4 returns `401`, because your made-up secret isn't the key that Supabase uses.
+
+### Try to cheat in the console
+
+Can you add a Pokémon to someone else's team? Log in, open the DevTools **Console** and run (with the URL and publishable key from your `.env`):
+
+```js
+const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2");
+const sb = createClient("https://your-project-id.supabase.co", "sb_publishable_...");
+
+await sb.from("team").insert({
+  user_id: "the-user-id-of-someone-else",
+  id: 150, name: "mewtwo", image: "https://…",
+});
+```
+
+The new client finds your session in `localStorage`, so it sends your token. You can write any `user_id` you want, but `auth.uid()` comes from the signed token, and the `with check` policy compares the two. The answer is `42501 new row violates row-level security policy`.
+
+(The console may warn about "Multiple GoTrueClient instances". That's because the app already has a client. You can ignore it.)
+
 ## Tested
 
 Tested with `@supabase/supabase-js` 2.118 against a local Supabase (`npx supabase start`):
@@ -246,7 +344,6 @@ Tested with `@supabase/supabase-js` 2.118 against a local Supabase (`npx supabas
 
 ## Ideas to try next
 
-- Copy the token from the Network tab and paste it into [jwt.io](https://jwt.io). Find the `sub` and compare it with the `user_id` in the Table Editor.
 - Delete the `select` policy and reload. The team is empty, without an error.
 - The "max. 3 Pokémon" check is still only in `pokemon.vue`. Enforce it in the database with an `insert` policy: `with check (auth.uid() = user_id and (select count(*) from team where user_id = auth.uid()) < 3)`.
 - Add a magic link login with `supabase.auth.signInWithOtp({ email })`.
