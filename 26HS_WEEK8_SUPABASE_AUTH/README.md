@@ -9,7 +9,11 @@ In week 7 the policies said `using (true)`: anyone with the publishable key coul
 
 ## Slides
 
-[Supabase Authentication](https://docs.google.com/presentation/d/1GZaIb8n_CL9JMnr8mjgRjyfvltTxDAfHF7tw1jSIZz0/edit?usp=sharing), slides 4 to 10 (the JWT and the exercise are on slides 7 to 10)
+[Supabase Authentication](https://docs.google.com/presentation/d/1GZaIb8n_CL9JMnr8mjgRjyfvltTxDAfHF7tw1jSIZz0/edit?usp=sharing):
+
+- Slides 4 to 9: the token (JWT). The exercise is on slide 7.
+- Slides 10 to 12: JWT meets RLS
+- Slides 13 to 18: other login methods (magic link, OAuth, phone, anonymous)
 
 ## The architecture
 
@@ -107,7 +111,7 @@ create policy "users can remove from their own team"
 
 ### 2. Turn off "Confirm email" (for class)
 
-By default, Supabase sends a confirmation e-mail after every registration, and you can only log in after clicking the link. The built-in e-mail service only sends a few e-mails per hour (see the slides on e-mail sending).
+By default, Supabase sends a confirmation e-mail after every registration, and you can only log in after clicking the link. The built-in e-mail service only sends 2 e-mails per hour (see the slides on e-mail sending).
 
 For class, go to **Authentication → Sign In / Providers → Email** and turn off **Confirm email**. Then `signUp` logs you in right away. Turn it back on for a real app.
 
@@ -261,7 +265,7 @@ Which key signs the token:
 - **ES256** (a key pair): the private key signs, and only Supabase Auth knows it. The public key checks, and anyone may see it at `/auth/v1/.well-known/jwks.json`. The local Supabase (`npx supabase start`) signs like this.
 - **HS256** (one JWT secret): the same secret signs and checks. Whoever has the secret can build a valid token for any user. We tested it: with the secret, a self-made token with Misty's `sub` returns Misty's team. That's why the JWT secret and the secret key never go into the frontend or onto GitHub.
 
-To see which one your project uses, look at `alg` in the header on [jwt.io](https://jwt.io), or in the dashboard under **Project Settings → JWT Keys**.
+Our class project in the Supabase cloud signs with **HS256**, so your token on jwt.io probably shows `"alg": "HS256"`, not `ES256` like the example on the slides. To see which one your project uses, look at `alg` in the header on [jwt.io](https://jwt.io), or in the dashboard under **Project Settings → JWT Keys**.
 
 ### The auth flow
 
@@ -301,7 +305,13 @@ About step 3:
 - In the cURL, delete only the line `-H 'authorization: Bearer eyJ...'`. Keep the `apikey` line: with the publishable key alone you're `anon`.
 - The token is only valid for one hour. If you get `401` with `JWT expired`, reload the app and copy the request again.
 
-What you should see: step 3 without the token returns `[]` (you're `anon`). Step 4 returns `401`, because your made-up secret isn't the key that Supabase uses.
+What you should see: step 3 without the token returns `[]` (you're `anon`). Step 4 returns `401`, because your made-up secret isn't the key that Supabase uses:
+
+```json
+{"code":"PGRST301","details":"None of the keys was able to decode the JWT","hint":null,"message":"No suitable key or wrong key type"}
+```
+
+`PGRST301` means the JWT is invalid: Supabase tried all its keys, and none of them gives the same signature. ("Decode" here means verify. Reading the token still works, as jwt.io shows.) Add `-i` to the cURL command to see the status line `HTTP/2 401`.
 
 ### Try to cheat in the console
 
@@ -321,6 +331,102 @@ The new client finds your session in `localStorage`, so it sends your token. You
 
 (The console may warn about "Multiple GoTrueClient instances". That's because the app already has a client. You can ignore it.)
 
+## Other login methods
+
+E-mail and password is only one way to log in. All methods end the same way: supabase-js gets a session with a JWT and saves it in `localStorage`. After that, nothing changes: `useTeam.js`, the policies and `auth.uid()` work exactly like before. Only `login.vue` and `useAuth.js` change.
+
+| Method | Call | When you get the token | Setup |
+| ------ | ---- | ---------------------- | ----- |
+| E-mail & password | `signInWithPassword()` | Right away | Nothing (turn off "Confirm email" for class) |
+| Magic link | `signInWithOtp({ email })` | After clicking the link in the e-mail | Add the redirect URL |
+| OAuth (GitHub, Google, …) | `signInWithOAuth({ provider })` | After a detour to GitHub | An OAuth app at the provider |
+| Phone | `signInWithOtp({ phone })` + `verifyOtp()` | After typing the code from the SMS | An SMS provider, costs money |
+| Anonymous | `signInAnonymously()` | Right away | Turn it on in the dashboard |
+
+The JWT shows how the user logged in: `amr` is `password` for a password login and `otp` for a magic link or a code (tested).
+
+### Magic link
+
+```js
+async function signInWithMagicLink(email) {
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: "http://localhost:3000/pokemon" },
+  });
+  if (error) throw error;
+  // no session yet: show "Check your e-mail"
+}
+```
+
+1. `signInWithOtp` asks Supabase to send an e-mail. Unlike `signInWithPassword`, it returns **no session** yet.
+2. The user clicks the link. It goes to Supabase (`/auth/v1/verify`), which redirects to `emailRedirectTo` with the token in the URL (`/pokemon#access_token=…`).
+3. supabase-js reads the token from the URL and saves the session. Our middleware calls `getSession()`, which waits for that, so `/pokemon` opens logged in. We tested this with the week 8 app, unchanged.
+
+Setup:
+
+- The redirect URL must be allowed: **Authentication → URL Configuration → Redirect URLs**, for example `http://localhost:3000/**`. Otherwise Supabase redirects to the Site URL.
+- If the e-mail doesn't exist yet, Supabase creates the user. To only let existing users in, pass `shouldCreateUser: false`.
+- Every login sends an e-mail, so the e-mail limit applies (2 per hour with the built-in service, and one request per 60 seconds per user).
+
+**A code instead of a link:** it's the same method. Only the e-mail is different. Add `{{ .Token }}` to the **Magic Link** template under **Authentication → Emails**, and the e-mail contains a 6-digit code. The user types it into your page, and you call:
+
+```js
+const { data, error } = await supabase.auth.verifyOtp({ email, token: "123456", type: "email" });
+```
+
+### OAuth (GitHub, Google, …)
+
+```js
+async function signInWithGitHub() {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "github",
+    options: { redirectTo: "http://localhost:3000/pokemon" },
+  });
+  if (error) throw error;
+  // the browser is already on its way to GitHub
+}
+```
+
+1. `signInWithOAuth` sends the browser to GitHub right away. Your page is gone.
+2. The user logs in at GitHub and allows the app. **Only GitHub sees the password.**
+3. GitHub sends the browser back to Supabase (`https://<project-id>.supabase.co/auth/v1/callback`). Supabase gets the profile (e-mail, name) and creates the user in `auth.users`.
+4. Supabase redirects to `redirectTo` with the token in the URL, just like the magic link.
+
+Setup for GitHub:
+
+1. Supabase dashboard → **Authentication → Sign In / Providers → GitHub**. Copy the **Callback URL**.
+2. GitHub → **Settings → Developer settings → OAuth Apps → New OAuth App**. Homepage URL: `http://localhost:3000`. Authorization callback URL: the URL from step 1. Copy the **Client ID** and generate a **Client Secret**.
+3. Back in Supabase: turn on **GitHub Enabled**, paste the Client ID and Client Secret, **Save**. Add `http://localhost:3000/**` under **URL Configuration → Redirect URLs**.
+
+The Client Secret only goes into the Supabase dashboard, never into the frontend or onto GitHub. Google, Apple, Discord, Azure and the others work the same way: change `provider` and create an OAuth app at that provider.
+
+Without setup, Supabase answers `400 Unsupported provider: provider is not enabled`.
+
+### Phone
+
+```js
+await supabase.auth.signInWithOtp({ phone: "+41791234567" });
+await supabase.auth.verifyOtp({ phone: "+41791234567", token: "123456", type: "sms" });
+```
+
+Like the e-mail code, but by SMS. Supabase needs an SMS provider (Twilio, MessageBird, Vonage, …), and every SMS costs money. Without one, you get `Unsupported phone provider`.
+
+### Anonymous
+
+```js
+const { data, error } = await supabase.auth.signInAnonymously();
+```
+
+The user gets a real token without an e-mail. The payload has `"role": "authenticated"` and `"is_anonymous": true`. Turn it on under **Authentication → Sign In / Providers → Allow anonymous sign-ins**.
+
+**Careful:** anonymous users pass our policies, because they are `to authenticated`. We tested it: an anonymous user can add Pokémon to their own team. To keep them out, check the claim in the policy:
+
+```sql
+create policy "only real users can add"
+  on team for insert to authenticated
+  with check (auth.uid() = user_id and (auth.jwt() ->> 'is_anonymous')::boolean is false);
+```
+
 ## Tested
 
 Tested with `@supabase/supabase-js` 2.118 against a local Supabase (`npx supabase start`):
@@ -336,13 +442,21 @@ Tested with `@supabase/supabase-js` 2.118 against a local Supabase (`npx supabas
 | Wrong password | `Invalid login credentials` |
 | Open `/pokemon` without login | Redirect to `/login` |
 | Reload after login | Still logged in |
+| Magic link: `signInWithOtp({ email, options: { emailRedirectTo } })` | `session: null` first. Clicking the link in the e-mail opens `/pokemon`, logged in |
+| Magic link template with `{{ .Token }}`, then `verifyOtp({ email, token, type: "email" })` | Logged in. Wrong code: `Token has expired or is invalid` |
+| `signInWithOtp` with `shouldCreateUser: false` for an unknown e-mail | `Signups not allowed for otp` |
+| `signInAnonymously()` | Token with `role: authenticated`, `is_anonymous: true`. Can insert into `team` |
+| Anonymous user, insert policy with `is_anonymous is false` | `42501`, blocked |
+| `signInWithOAuth({ provider: "github" })` without setup | `400 Unsupported provider: provider is not enabled` |
+| `signInWithOtp({ phone })` without SMS provider | `Unsupported phone provider` |
+| Forged token (cloud project, HS256) | `PGRST301 No suitable key or wrong key type` |
 
 ## Common problems
 
 | Problem | Fix |
 | ------- | --- |
 | After "Registrieren": "Bestätige deine E-Mail-Adresse" | "Confirm email" is on. Click the link in the e-mail, or turn it off (step 2). |
-| `Email rate limit exceeded` | The built-in e-mail service is limited to a few e-mails per hour. Turn off "Confirm email", or wait. |
+| `Email rate limit exceeded` | The built-in e-mail service is limited to 2 e-mails per hour. Turn off "Confirm email", or wait. |
 | `Invalid login credentials` | Wrong e-mail or password, or the e-mail isn't confirmed yet. |
 | `Password should be at least 6 characters` | Supabase needs at least 6 characters. |
 | `User already registered` | Use "Einloggen" instead of "Registrieren". |
@@ -354,5 +468,4 @@ Tested with `@supabase/supabase-js` 2.118 against a local Supabase (`npx supabas
 
 - Delete the `select` policy and reload. The team is empty, without an error.
 - The "max. 3 Pokémon" check is still only in `pokemon.vue`. Enforce it in the database with an `insert` policy: `with check (auth.uid() = user_id and (select count(*) from team where user_id = auth.uid()) < 3)`.
-- Add a magic link login with `supabase.auth.signInWithOtp({ email })`.
-- Add a GitHub login with `supabase.auth.signInWithOAuth({ provider: "github" })`.
+- Add a magic link or a GitHub login to `login.vue`, see [Other login methods](#other-login-methods).
